@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Историческая игра — Отеген батыр</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+background: linear-gradient(135deg, #e4efe7 0%, #f8f0dc 50%, #e8eee4 100%);
+  color: #243b2a;
+}
+header {
+  background: linear-gradient(135deg, #17452e, #287447, #98743c);
+  color: white;
+  text-align: center;
+  padding: 38px 20px;
+  box-shadow: 0 6px 20px rgba(23, 69, 46, 0.2);
+}
+
+header h1 {
+  margin: 0 0 12px;
+  font-size: clamp(28px, 5vw, 42px);
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+header h1 { margin: 0 0 10px; }
+main {
+  max-width: 760px;
+  margin: 25px auto;
+  padding: 20px;
+}
+.card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(36, 92, 59, 0.12);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 14px 35px rgba(36, 59, 42, 0.12);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  animation: cardAppear 0.6s ease-out;
+}
+
+.card:hover {
+  box-shadow: 0 18px 42px rgba(36, 59, 42, 0.16);
+  transform: translateY(-2px);
+}
+.info {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 16px;
+}
+.answer {
+  display: block;
+  width: 100%;
+  margin: 12px 0;
+  padding: 15px 18px;
+  background: #f1f6f0;
+  color: #243b2a;
+  text-align: left;
+  border: 2px solid #e0eade;
+  border-radius: 14px;
+  transition: background 0.25s ease, border-color 0.25s ease,
+              transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.answer:hover:not(:disabled) {
+  background: #e3efe2;
+  border-color: #398653;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(36, 92, 59, 0.10);
+}
+.answer:hover { border-color: #398653; }
+.answer:disabled { cursor: default; opacity: 1; }
+.correct { background: #c9f1d1; border-color: #258544; }
+.wrong { background: #ffe0dc; border-color: #c94a3c; }
+.primary {
+  background: #287447;
+  color: white;
+  margin-top: 15px;
+}
+.primary:hover { background: #1d5b36; }
+#feedback { font-weight: bold; min-height: 24px; }
+#result {
+  margin-top: 24px;
+  padding: 28px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #edf7ed, #fff3d6);
+  border: 2px solid #d5e6d2;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(36, 59, 42, 0.10);
+  animation: cardAppear 0.6s ease-out;
+}
+
+#result h3 {
+  margin: 0 0 18px;
+  color: #245c3b;
+  font-size: 28px;
+}
+
+#result p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+#question { line-height: 1.5; }
+footer { text-align: center; padding: 20px; color: #536957; }
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 600px) {
+  main {
+    margin: 16px auto;
+    padding: 12px;
+  }
+
+  .card {
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+
+  header {
+    padding: 28px 16px;
+  }
+
+  .answer {
+    padding: 14px;
+    font-size: 15px;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏹 Историческая игра</h1>
+  <p>Проверь свои знания об Отеген батыре</p>
+</header>
+
+<main>
+  <section class="card">
+    <div class="info">
+      <span id="round">Раунд 1</span>
+      <span id="progress">Вопрос 1 из 12</span>
+      <span id="score">Очки: 0</span>
+    </div>
+
+    <h2 id="question">Добро пожаловать!</h2>
+    <div id="answers"></div>
+    <p id="feedback" aria-live="polite"></p>
+    <button class="primary" id="next" hidden>Следующий вопрос →</button>
+    <div id="result" hidden></div>
+    <button class="primary" id="restart" hidden>Играть заново ↻</button>
+  </section>
+</main>
+
+<footer>Изучаем историю и сохраняем память о предках</footer>
+
+<script>
+const questions = [
+  {
+    q: "Кем был Отеген батыр?",
+    a: ["Казахским батыром", "Мореплавателем", "Художником", "Космонавтом"],
+    correct: 0,
+    info: "Отеген батыр известен в казахской исторической памяти как батыр."
+  },
+  {
+    q: "Какое звание означает слово «батыр»?",
+    a: ["Храбрый воин, герой", "Торговец", "Писатель", "Музыкант"],
+    correct: 0,
+    info: "Словом «батыр» называют храброго воина или героя."
+  },
+  {
+    q: "К какому народу относится историческая память об Отеген батыре?",
+    a: ["К казахскому народу", "К японскому народу", "К испанскому народу", "К бразильскому народу"],
+    correct: 0,
+    info: "Отеген батыр — фигура казахской истории и культурной памяти."
+  },
+  {
+    q: "Почему люди сохраняют память о батырах?",
+    a: ["Чтобы помнить историю и подвиги", "Чтобы забыть прошлое", "Чтобы заменить учебники играми", "Чтобы не изучать культуру"],
+    correct: 0,
+    info: "Память о батырах помогает сохранять историческое и культурное наследие."
+  },
+  {
+    q: "Как можно изучать историю Отеген батыра?",
+    a: ["Читать исторические материалы и изучать источники", "Полагаться только на слухи", "Не проверять сведения", "Игнорировать документы"],
+    correct: 0,
+    info: "Исторические сведения важно изучать по надёжным источникам."
+  },
+  {
+    q: "Что помогает отличать исторический факт от легенды?",
+    a: ["Сопоставление разных источников", "Количество восклицательных знаков", "Красивое оформление текста", "Число картинок"],
+    correct: 0,
+    info: "Сравнение источников помогает оценить достоверность сведений."
+  },
+  {
+    q: "Как называют рассказы о прошлом, передаваемые из поколения в поколение?",
+    a: ["Предания", "Инструкции", "Объявления", "Расписания"],
+    correct: 0,
+    info: "Предания — рассказы о прошлом, которые передаются между поколениями."
+  },
+  {
+    q: "Зачем посещают исторические памятники?",
+    a: ["Чтобы узнавать о прошлом и беречь наследие", "Чтобы портить их", "Чтобы скрывать историю", "Чтобы забывать традиции"],
+    correct: 0,
+    info: "Памятники помогают знакомиться с историей и сохранять наследие."
+  },
+  {
+    q: "Что такое исторический источник?",
+    a: ["Материал, который помогает изучать прошлое", "Любая современная реклама", "Только художественный вымысел", "Случайный набор букв"],
+    correct: 0,
+    info: "Историческими источниками могут быть документы, предметы, изображения и свидетельства."
+  },
+  {
+    q: "Как следует относиться к культурному наследию?",
+    a: ["Уважать и беречь его", "Разрушать его", "Не интересоваться им", "Запрещать изучение"],
+    correct: 0,
+    info: "Культурное наследие важно сохранять для следующих поколений."
+  },
+  {
+    q: "Что помогает передавать историю следующим поколениям?",
+    a: ["Образование, книги и музеи", "Уничтожение документов", "Забывание традиций", "Отказ от исследований"],
+    correct: 0,
+    info: "Книги, музеи и образование помогают передавать знания о прошлом."
+  },
+  {
+    q: "Как лучше проверять точные даты и события из биографии Отеген батыра?",
+    a: ["Сверять сведения с надёжными историческими источниками", "Выбирать первую попавшуюся публикацию", "Придумывать недостающие даты", "Считать любой рассказ доказанным"],
+    correct: 0,
+    info: "Точные биографические сведения нужно проверять по надёжным источникам."
+  }
+];
+
+let index = 0;
+let score = 0;
+let answered = false;
+
+const questionEl = document.getElementById("question");
+const answersEl = document.getElementById("answers");
+const feedbackEl = document.getElementById("feedback");
+const nextBtn = document.getElementById("next");
+const restartBtn = document.getElementById("restart");
+const resultEl = document.getElementById("result");
+
+function showQuestion() {
+  answered = false;
+  const item = questions[index];
+  document.getElementById("round").textContent =
+    "Раунд " + (Math.floor(index / 4) + 1);
+  document.getElementById("progress").textContent =
+    `Вопрос ${index + 1} из ${questions.length}`;
+  document.getElementById("score").textContent = "Очки: " + score;
+  questionEl.textContent = item.q;
+  answersEl.innerHTML = "";
+  feedbackEl.textContent = "";
+  nextBtn.hidden = true;
+  resultEl.hidden = true;
+
+  item.a.forEach((answer, i) => {
+    const button = document.createElement("button");
+    button.className = "answer";
+    button.textContent = answer;
+    button.onclick = () => chooseAnswer(i);
+    answersEl.appendChild(button);
+  });
+}
+
+function chooseAnswer(choice) {
+  if (answered) return;
+  answered = true;
+  const item = questions[index];
+  const buttons = answersEl.querySelectorAll("button");
+
+  buttons.forEach((button, i) => {
+    button.disabled = true;
+    if (i === item.correct) button.classList.add("correct");
+    if (i === choice && choice !== item.correct) {
+      button.classList.add("wrong");
+    }
+  });
+
+  if (choice === item.correct) {
+    score++;
+    feedbackEl.textContent = "✅ Верно! " + item.info;
+  } else {
+    feedbackEl.textContent = "❌ Пока неверно. " + item.info;
+  }
+
+  document.getElementById("score").textContent = "Очки: " + score;
+  nextBtn.hidden = false;
+  nextBtn.textContent = index === questions.length - 1
+    ? "Посмотреть результат"
+    : "Следующий вопрос →";
+}
+
+nextBtn.onclick = () => {
+  index++;
+  if (index < questions.length) {
+    showQuestion();
+  } else {
+    questionEl.textContent = "🎉 Игра завершена!";
+    answersEl.innerHTML = "";
+    feedbackEl.textContent = "";
+    nextBtn.hidden = true;
+    resultEl.hidden = false;
+    const percent = Math.round(score / questions.length * 100);
+    resultEl.innerHTML =
+      `<h3>Твой результат: ${score} из ${questions.length}</h3>
+       <p>Правильных ответов: ${percent}%</p>
+       <p>${percent >= 80 ? "Отличная работа!" : percent >= 50 ? "Хороший старт! Продолжай изучать историю." : "Попробуй ещё раз — ты сможешь!"}</p>`;
+    restartBtn.hidden = false;
+  }
+};
+
+restartBtn.onclick = () => {
+  index = 0;
+  score = 0;
+  restartBtn.hidden = true;
+  showQuestion();
+};
+
+showQuestion();
+</script>
+</body>
+</html>

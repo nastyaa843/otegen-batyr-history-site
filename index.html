@@ -1040,7 +1040,7 @@ section:hover {
     color: #625443;
     line-height: 1.8;
 }
-}
+
 
 #evidence .archive-panel[hidden] {
     display: none !important;
@@ -1378,11 +1378,96 @@ section:hover {
     object-fit: contain;
     box-sizing: border-box;
 }
+.infographic-container {
+    max-width: 850px;
+    margin: 30px auto;
+    text-align: center;
+}
 
+.infographic-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 2px solid #c8a779;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(75, 52, 29, 0.15);
+    transition: transform 0.3s ease;
+}
 
+.infographic-image:hover {
+    transform: scale(1.01);
+}
 
+.infographic-caption {
+    margin-top: 16px;
+    line-height: 1.7;
+    color: #66543e;
+}
+/* Финал исторического расследования */
+.final-section h2 {
+    width: 100%;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(38px, 6vw, 58px) !important;
+    font-weight: 900 !important;
+    color: #8a6727 !important;
+    text-align: center;
+    letter-spacing: 4px;
+    line-height: 1.25;
+    margin: 25px 0 30px !important;
+    text-shadow:
+        1px 1px 0 #fff0c2,
+        0 3px 0 rgba(138, 103, 39, 0.18),
+        0 0 18px rgba(198, 164, 91, 0.3);
+}
 
+/* Золотая печать исторического расследования */
+.final-seal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 190px;
+    height: 190px;
+    box-sizing: border-box;
+    margin: 20px auto 35px;
+    padding: 15px;
+    border: 3px double #a88643;
+    border-radius: 50%;
+    outline: 1px solid #c6a45b;
+    outline-offset: 6px;
+    background: radial-gradient(circle, #fff8e6 0%, #e8dfc8 75%);
+    color: #80612c;
+    box-shadow: 0 5px 18px rgba(92, 70, 32, 0.15);
+    transform: rotate(-5deg);
+}
 
+.seal-stars {
+    font-size: 17px;
+    margin-bottom: 8px;
+    color: #b08b45;
+}
+
+.seal-number {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 4px;
+}
+
+.seal-word {
+    margin: 7px 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 23px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.seal-bottom {
+    max-width: 130px;
+    font-size: 8px;
+    line-height: 1.6;
+    letter-spacing: 1.5px;
+    text-align: center;
+}
 
 </style>
 </head>
@@ -1460,7 +1545,10 @@ document.addEventListener("DOMContentLoaded", function () {
     <a href="#map-section">Интерактивная карта</a>
     <a href="#investigation">Историческое расследование</a>
     <a href="#legacy">Память и наследие</a>
+    <a href="#infographics">Инфографика</a>
+    <a href="#history-comes-alive">История оживает</a>
     <a href="#history-quiz">Проверь свои знания</a>
+    <a href="otegen-history-game.html" target="_blank" rel="noopener noreferrer">Историческая игра</a>
 
 
 </nav>
@@ -1470,7 +1558,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <h2>01. Историческое досье</h2>
     
 <img
-    src="batyr.jpg"
+   src="pictures/batyr_files/batyr.jpg"
     alt="Портрет Отеген батыра"
     class="batyr-portrait"
 >
@@ -1702,10 +1790,50 @@ document.addEventListener("DOMContentLoaded", function () {
             портал «История Казахстана»
         </a>
     </p>
+<section id="infographics" class="heritage-section">
+    <h2>Инфографика: история в одном взгляде</h2>
 
-    <div class="timeline-divider"></div>
+    <p>
+        Быстрый и доступный способ познакомиться
+        с жизнью и наследием Отеген батыра.
+    </p>
 
+    <div class="infographic-container">
+        <img
+    src="pictures/batyr_files/otegen-infographic.png"
+    alt="Инфографика об Отеген батыре"
+    class="infographic-image"
+>
+
+        <p class="infographic-caption">
+            Изучите эпоху, подвиги, образование и наследие
+            Отеген батыра с помощью иллюстраций и кратких пояснений.
+        </p>
+    </div>
     
+    <div class="infographic-container">
+        <h3>Результаты опроса об Отеген батыре</h3>
+
+        <p>
+            Результаты ответов о знаниях и сохранении
+            исторической памяти Отеген Батыра.
+        </p>
+
+        <img
+            src="pictures/batyr_files/otegen-survey.png"
+            alt="Инфографика с результатами опроса об Отеген батыре"
+            class="infographic-image"
+            loading="lazy"
+        >
+
+        <p class="infographic-caption">
+            Результаты опроса среди 60 участников.
+        </p>
+    </div>
+</section>
+</section>
+  
+
 
 
 <div class="history-quiz" id="history-quiz">
@@ -2224,7 +2352,7 @@ document.addEventListener("DOMContentLoaded", function () {
        <h3>Улика № 1. Мавзолей Отеген батыра</h3>
 
 <img
-    src="mausoleum%20new.jpeg"
+    src="pictures/mausoleum%20new.jpeg"
     alt="Мавзолей Отеген батыра"
     class="heritage-photo"
 >
@@ -2326,12 +2454,62 @@ document.addEventListener("DOMContentLoaded", function () {
 
     
 </section>
+<section id="history-comes-alive" class="history-videos">
+    <div class="videos-container">
+        <p class="section-eyebrow">ИСТОРИЯ В НОВОМ ФОРМАТЕ</p>
+        <h2>История оживает</h2>
+
+        <p class="videos-intro">
+            Познакомьтесь с историей Отеген батыра
+            с помощью цифровых технологий и видеоматериалов.
+        </p>
+
+        <div class="video-card">
+            <div class="video-icon"></div>
+        <div class="video-info">
+                <h3>Отеген батыр: исторический видеообзор</h3>
+                <p>
+                    Познавательный видеоматериал, созданный
+                    с помощью NotebookLM на основе исторических источников.
+                </p>
+                <a
+                    class="video-link"
+                    href="https://notebook.google.com/notebook/32e9a7c4-8bd6-4991-8548-840b1507e460/artifact/0304674b-83b8-4bbd-9113-5846636e1ddc?utm_source=nlm_web_share&amp;utm_medium=google_oo&amp;utm_campaign=art_share_1&amp;utm_content=&amp;utm_smc=nlm_web_share_google_oo_art_share_1_"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Смотреть видео 
+                </a>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <div class="video-icon"></div>
+            <div class="video-info">
+                <h3>Отеген батыр: факт или предание?</h3>
+                <p>
+                    Познавательное видео в формате исторического детектива.
+                </p>
+                <a
+                    class="video-link"
+                    href="https://notebook.google.com/notebook/52ebd0ee-0856-4154-9f90-c784c51540cb"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Смотреть расследование 
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
 <section class="final-section">
-    <p class="final-label">ИСТОРИЧЕСКОЕ РАССЛЕДОВАНИЕ</p>
-
-<h2>07. ДЕЛО ЗАКРЫТО</h2>
-
-<div class="final-line"></div>
+    <h2>07. ДЕЛО ЗАКРЫТО</h2>
+    <div class="final-seal" aria-label="Историческое дело закрыто">
+    <span class="seal-stars">✦　✧　✦</span>
+    <span class="seal-number">ДЕЛО</span>
+    <span class="seal-word">ЗАКРЫТО</span>
+    <span class="seal-bottom">ИСТОРИЧЕСКИЙ АРХИВ</span>
+</div>
 
 <button
     class="final-button"
@@ -2543,5 +2721,250 @@ document.addEventListener("DOMContentLoaded", function () {
     updateProgress();
 });
 </script>
+<style>
+#history-ai-button {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 9999;
+    background: #d8b56d;
+    color: #17130b;
+    border: 0;
+    border-radius: 30px;
+    padding: 14px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 18px #0008;
+}
+
+#history-ai-panel {
+    display: none;
+    position: fixed;
+    right: 24px;
+    bottom: 85px;
+    z-index: 9999;
+    width: min(360px, calc(100vw - 32px));
+    height: 460px;
+    max-height: calc(100vh - 120px);
+    background: #171717;
+    color: #f5f0e6;
+    border: 1px solid #d8b56d;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px #0009;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+#history-ai-header {
+    background: #292319;
+    padding: 16px;
+    color: #e8c77e;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#history-ai-close {
+    background: transparent;
+    color: #fff;
+    border: 0;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+#history-ai-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.history-ai-message {
+    padding: 10px 12px;
+    border-radius: 12px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.history-ai-bot {
+    background: #302b22;
+    align-self: flex-start;
+}
+
+.history-ai-user {
+    background: #66512b;
+    align-self: flex-end;
+}
+
+#history-ai-form {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid #494033;
+}
+
+#history-ai-input {
+    flex: 1;
+    min-width: 0;
+    background: #252525;
+    color: white;
+    border: 1px solid #6e6047;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+#history-ai-form button {
+    background: #d8b56d;
+    color: #17130b;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+</style>
+
+<button id="history-ai-button" type="button">
+    ✦ Спросить исторического помощника
+</button>
+
+<div id="history-ai-panel">
+    <div id="history-ai-header">
+        <span>Исторический помощник</span>
+        <button id="history-ai-close" type="button"
+            aria-label="Закрыть чат">×</button>
+    </div>
+
+    <div id="history-ai-messages" aria-live="polite">
+        <div class="history-ai-message history-ai-bot">
+            Здравствуйте! Я помогу разобраться в истории Отеген батыра.
+            Задайте свой вопрос. Исторические факты и предания будем различать.
+        </div>
+    </div>
+
+    <form id="history-ai-form">
+        <input id="history-ai-input" type="text"
+            placeholder="Напишите вопрос..."
+            maxlength="2000" required>
+        <button type="submit">Отправить</button>
+    </form>
+</div>
+
+<script>
+(() => {
+    const openButton = document.getElementById("history-ai-button");
+    const panel = document.getElementById("history-ai-panel");
+    const closeButton = document.getElementById("history-ai-close");
+    const form = document.getElementById("history-ai-form");
+    const input = document.getElementById("history-ai-input");
+    const messages = document.getElementById("history-ai-messages");
+
+    openButton.addEventListener("click", () => {
+        panel.style.display = "flex";
+        input.focus();
+    });
+
+    closeButton.addEventListener("click", () => {
+        panel.style.display = "none";
+    });
+
+    function addMessage(text, type) {
+        const item = document.createElement("div");
+        item.className = "history-ai-message " +
+            (type === "user" ? "history-ai-user" : "history-ai-bot");
+        item.textContent = text;
+        messages.appendChild(item);
+        messages.scrollTop = messages.scrollHeight;
+        return item;
+    }
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const question = input.value.trim();
+        if (!question) return;
+
+        addMessage(question, "user");
+        input.value = "";
+        input.disabled = true;
+
+        const sendButton = form.querySelector("button");
+        sendButton.disabled = true;
+
+        const loading = addMessage("Думаю над ответом…", "bot");
+
+        try {
+    const text = question.toLowerCase().replaceAll("ё", "е");
+
+    const answers = [
+        {
+            words: ["кто такой", "кто такой отеген", "биография", "кто такой батыр"],
+            answer: "Отеген батыр — историческая личность казахского народа. На сайте ты можешь изучить его биографию, историческую эпоху и наследие. Подтверждённые сведения важно отличать от народных преданий."
+        },
+        {
+            words: ["когда родился", "год рождения", "дата рождения"],
+            answer: "На сайте в хронологии указана дата рождения Отеген батыра. Открой раздел «Историческая эпоха» и сверь дату с указанными там источниками. Даты из преданий могут отличаться от сведений, подтверждённых документами."
+        },
+        {
+            words: ["эпоха", "исторический период", "в каком веке", "джунгар"],
+            answer: "Отеген батыр жил в XVIII веке, в период сложных отношений и военных столкновений казахских жузов с джунгарами. Подробности смотри в разделе «Историческая эпоха» на сайте."
+        },
+        {
+            words: ["подвиг", "подвиги", "сражен", "воевал", "герой"],
+            answer: "Отеген батыр известен в исторической памяти как воин и батыр. Чтобы изучить сведения о его военном пути, открой раздел «Подвиги и историческая роль». Отдельно проверяй, какие эпизоды подтверждаются источниками, а какие сохранились в преданиях."
+        },
+        {
+            words: ["наследие", "памятник", "мавзолей", "память"],
+            answer: "Историческое наследие Отеген батыра сохраняется в народной памяти, рассказах, памятных местах и культурных традициях. Посмотри раздел «Историческое наследие» на сайте."
+        },
+        {
+            words: ["источник", "источники", "archaeology", "доказательств", "достовер"],
+            answer: "Для проверки исторических сведений используй раздел источников на сайте, включая материалы Archaeology.kz. Важно проверять автора, содержание публикации и то, подтверждает ли она конкретный факт."
+        },
+        {
+            words: ["тест", "проверить знания", "викторина"],
+            answer: "Предлагаю проверить знания! Открой раздел «Закрепление знаний об Отеген батыре» и пройди тест на сайте."
+        },
+         {
+            words: ["наследие", "историческое наследие", "культурное наследие", "память народа"],
+            answer: "Историческое наследие Отеген батыра связано с сохранением памяти о его личности и исторической эпохе. Изучать эту тему можно через исторические материалы, народные предания и памятные места. Важно различать сведения, подтверждённые источниками, и рассказы, передаваемые из поколения в поколение."
+        },
+        {
+            words: ["источники", "исторический источник", "archaeology.kz", "достоверность", "проверить факт", "доказательства"],
+            answer: "При изучении истории Отеген батыра важно проверять происхождение каждого сведения. На сайте в качестве одного из ресурсов упоминается Archaeology.kz. При работе с источником обращай внимание на автора, название публикации и то, какие именно факты она подтверждает. Народные предания могут дополнять исторический рассказ, но их следует отличать от документально подтверждённых сведений."
+        },
+        {
+            words: ["опрос", "результаты опроса", "результаты показал опрос", "какие результаты", "сколько знают", "исследование", "участники опроса"],
+            answer: "В рамках проекта был проведён опрос трёх групп участников. Среди школьников Отеген батыра знают 18 из 30 человек (60%), среди учителей — 13 из 15 (86,7%), среди жителей — 12 из 25 (48%). Результаты показывают, что уровень осведомлённости различается в зависимости от группы. Опрос помогает обосновать актуальность изучения исторического наследия Отеген батыра."
+        },
+        {
+            words: ["памятник", "мавзолей", "поселок отеген батыра", "посёлок отеген батыра", "памятные места"],
+            answer: "Памятник и мавзолей, связанные с памятью об Отеген батыры, можно изучать как часть исторического и культурного наследия родного края. В проекте этим местам посвящён раздел «Историческое наследие». При описании памятных мест важно проверять сведения об их расположении, истории создания и значении по надёжным источникам."
+        },
+    ];
+
+    const match = answers.find(item =>
+        item.words.some(word => text.includes(word))
+    );
+
+    loading.textContent = match
+        ? match.answer
+        : "Я бесплатный исторический помощник сайта. Пока я могу отвечать на подготовленные вопросы. Попробуй спросить о биографии Отеген батыра, его эпохе, подвигах, наследии или исторических источниках.";
+} catch (error) {
+    loading.textContent = "Не удалось подготовить ответ. Попробуй ещё раз.";
+} finally {
+            input.disabled = false;
+            sendButton.disabled = false;
+            input.focus();
+        }
+    });
+})();
+</script>
+
 </body>
 </html>
